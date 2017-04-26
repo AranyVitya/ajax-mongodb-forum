@@ -1,5 +1,5 @@
 $(function() {
-	//GET/READ
+	//GET/READ -- az oldal első betöltésekor kell, hogy megjelenjenek a már beírt üzenetek
 	$.ajax({
 		url: '/messages',
 		contentType: 'application/json',
@@ -28,15 +28,23 @@ $(function() {
 			data: JSON.stringify({ username: createUsername.val(), messagesss: createMessage.val()}),
 			success: function(response) {
 							console.log(response);
-                            //console.log('success');
-                            //console.log(JSON.stringify(data));
-                            //var contentP = $('#content');
+                            console.log('success');
 
-							//contentP.html('');
+							$.ajax({
+								url: '/messages',
+								contentType: 'application/json',
+								success:  function(response) {
 
-							//contentP.append('<li id="content">' + response.username + ': ' + response.messagesss + '</li>');
+									var contentP = $('#content');
+
+									contentP.html('');
+
+									response.messages.forEach(function(message){
+										contentP.append('<li id="content">' + message.username + ': ' + message.messagesss + '</li>');
+									});
+								}
+							});
             }
 		});
-
 	});
 });
