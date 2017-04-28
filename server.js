@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 //GET kérésre válaszol a kliens felé
 app.get('/messages', function(req, res){
 	db.collection('messages').find().toArray(function(err, result) {
+	//
 	res.send({messages:result});
 	});
 });

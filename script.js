@@ -3,13 +3,13 @@ $(function() {
 	$.ajax({
 		url: '/messages',
 		contentType: 'application/json',
-		success:  function(response) {
+		success:  function(response_get) {
 
 			var contentP = $('#content');
 
 			contentP.html('');
 
-			response.messages.forEach(function(message){
+			response_get.messages.forEach(function(message){
 				contentP.append('<li id="content">' + message.username + ': ' + message.messagesss + '</li>');
 			});
 		}
@@ -26,24 +26,11 @@ $(function() {
 			method: 'POST',
 			contentType: 'application/json',
 			data: JSON.stringify({ username: createUsername.val(), messagesss: createMessage.val()}),
-			success: function(response) {
-							console.log(response);
+			success: function(response_post) {
+							console.log(response_post);
                             console.log('success');
-
-							$.ajax({
-								url: '/messages',
-								contentType: 'application/json',
-								success:  function(response) {
-
-									var contentP = $('#content');
-
-									contentP.html('');
-
-									response.messages.forEach(function(message){
-										contentP.append('<li id="content">' + message.username + ': ' + message.messagesss + '</li>');
-									});
-								}
-							});
+							var contentP = $('#content');
+							contentP.append('<li id="content">' + response_post.username + ': ' + response_post.messagesss + '</li>');
             }
 		});
 	});
