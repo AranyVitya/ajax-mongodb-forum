@@ -1,36 +1,38 @@
 $(function() {
 	//GET/READ -- az oldal első betöltésekor kell, hogy megjelenjenek a már beírt üzenetek
 	// pollingal megoldott ajax GET kérés
-	(function poll() {	//polling
-		$.ajax({	
-			url: '/messages',
-			contentType: 'application/json',
-			success:  function(response_get) {
-				var contentP = $('#content');
-				contentP.html('');			
-				response_get.messages.forEach(function(message){
-					contentP.append('<li id="content">' + message.username + ': ' + message.messagesss + '</li>');
-					});
-			}, 
-			complete: poll,	//success után végrehajtott parancsokat lehet ide beírni, ez esetben a poll funkciót hívjuk meg
-			timeout: 5000
-		});
-	})();
 	// setTimeout-al megvalosított polling
-	/*(function poll() {	//polling funkció
-		setInterval(function() {
-			$.ajax({
+	(function poll() {
+		setTimeout(function() { 
+			$.ajax({	
+				url: '/messages',
+				contentType: 'application/json',
+				success:  function(response_get) {
+					var contentP = $('#content');
+					contentP.html('');			
+					response_get.messages.forEach(function(message){
+						contentP.append('<li id="content">' + message.username + ': ' + message.messagesss + '</li>');
+					});
+					poll();
+				},
+			});
+		},3000);
+	})();
+	// setInterval-al megvalosított polling
+	/*setInterval(function() {
+		$.ajax({
 			url: '/messages',
 			contentType: 'application/json',
 			success:  function(response_get) {
 				var contentP = $('#content');
-				contentP.html('');		//ha ez nem lenne itt akkor a setTimeout által beállított 5 mp enkénti GET kérésre kapott választ minden 5. másodpercben kiírná egymás alá			
+				contentP.html('');		//ha ez nem lenne itt akkor a setTimeout által beállított 3 mp enkénti GET kérésre kapott választ minden 3. másodpercben kiírná egymás alá			
 				response_get.messages.forEach(function(message){
 					contentP.append('<li id="content">' + message.username + ': ' + message.messagesss + '</li>');
 				});
-			}, complete: poll});	//success után végrehajtott parancsokat lehet ide beírni, ez esetben a poll funkciót hívjuk meg
-		},5000);	//5 másodpercenként végrehajtja a setTimeouton belül leírt kódot
-	})();*/
+			},
+		});
+	},3000);	//3 másodpercenként végrehajtja a setInterval-on belül leírt kódot
+	*/
 	//POST/CREAT
 	$('#create-form').on('submit', function(event) {
 		event.preventDefault();
