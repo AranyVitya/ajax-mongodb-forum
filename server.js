@@ -15,7 +15,6 @@ app.use(bodyParser.json());
 //GET kérésre válaszol a kliens felé
 app.get('/messages', function(req, res){
 	db.collection('messages').find().toArray(function(err, result) {
-	//
 	res.send({messages:result});
 	});
 });
@@ -28,7 +27,6 @@ app.post('/messages', function(req, res){
 	res.send(req.body); //válasz a kliens felé
 	});
 });
-
 //adatbázis csatlakozzása
 MongoClient.connect(url, function (err, database) {
   	if (err) return console.log(err);
