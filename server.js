@@ -1,7 +1,7 @@
 //inicializáltam pár fontos package-t
 var express = require('express');	//ez egy web application framework, segít egy egyszerű webszervert létrehozni
-var bodyParser = require('body-parser');   //ez egy NOSQL adatbázis
-var MongoClient = require('mongodb').MongoClient;	// az express nem kezeli az adatok olvasását a <form> html elemből, ezért van szükség erre a middleware cuccra
+var bodyParser = require('body-parser');   // az express nem kezeli az adatok olvasását a <form> html elemből, ezért van szükség erre a middleware cuccra
+var MongoClient = require('mongodb').MongoClient;	//ez egy NOSQL adatbázis
 var app = express();
 
 var db;

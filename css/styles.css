@@ -134,3 +134,9 @@ body {
 .login-help{
   font-size: 12px;
 }
+
+.footer {
+  background-color: #424242;
+  color: white;
+  padding: 20px 10px;
+}
